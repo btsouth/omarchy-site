@@ -73,7 +73,7 @@ const openApp = (
     )}
     <span className="mt-2 block">
       {t(
-        'Just want a quick look? Choose Quick start as omarchy instead. It skips setup and signs you in as omarchy, with the password omarchy. Customize lets you pick where to store Omarchy first.',
+        'Just want a quick look? Choose Quick start as omarchy instead. It skips the account form and signs you in as omarchy, with the password omarchy. Customize lets you pick where to store Omarchy first.',
       )}
     </span>
   </>
@@ -106,7 +106,7 @@ const questions: Array<[string, React.ReactNode]> = [
       )}
       <span className="mt-3 block">
         {t(
-          'You choose the account once, when Omarchy is first set up: Set up my own account, or Quick start as omarchy. To switch later, back up anything you want to keep, choose Delete this VM in the app’s home screen menu, and set it up again.',
+          'You choose the account once, when Omarchy is first set up: Set up my own account, or Quick start as omarchy. To start over with a VM in the app’s default storage, back up anything you want to keep, choose Delete this VM in the app’s home screen menu, and set it up again. This action does not delete a VM in a folder you chose yourself.',
         )}
       </span>
     </>,
@@ -115,9 +115,9 @@ const questions: Array<[string, React.ReactNode]> = [
     t('How do I know my PC can run it?'),
     <>
       {t(
-        'You need a 64-bit x86 PC with hardware virtualization turned on. If this command prints /dev/kvm, you are set. If not, enable virtualization (Intel VT-x or AMD-V/SVM) in your firmware settings.',
+        'You need a 64-bit x86 PC with hardware virtualization turned on and permission to use KVM. This command checks for the KVM device. If it is missing, check virtualization (Intel VT-x or AMD-V/SVM) in your firmware settings. Try Omarchy also checks whether your account can use it and explains what to change if access is denied.',
       )}
-      <Command text="ls /dev/kvm" />
+      <Command text="ls -l /dev/kvm" />
     </>,
   ],
   [
@@ -129,13 +129,13 @@ const questions: Array<[string, React.ReactNode]> = [
   [
     t('How do I get my keyboard back?'),
     t(
-      'While the Omarchy window is focused, Super and your other shortcuts go to Omarchy. Press Ctrl+Alt+G to give the keyboard back to your desktop until you click the window again. Ctrl+Alt+F switches fullscreen.',
+      'On Wayland, Super and your other shortcuts go to Omarchy while its window is focused. On X11, Omarchy captures the keyboard only while the pointer is over its window; move it out to use your desktop’s shortcuts. Ctrl+Alt+G releases the keyboard until you click the window again. Ctrl+Alt+F switches fullscreen.',
     ),
   ],
   [
     t('What happens if I uninstall it?'),
     t(
-      'Uninstalling keeps your VM unless you also delete the app’s data, so reinstalling picks up where you left off. To remove only the VM, choose Delete this VM in the app’s home screen menu.',
+      'Uninstalling keeps your VM unless you also delete the app’s data, so reinstalling picks up where you left off. Delete this VM in the app’s home screen menu removes a VM in the app’s default storage. A VM in a folder you chose yourself stays there even if you uninstall the app and delete its data.',
     ),
   ],
   [
@@ -223,7 +223,7 @@ export function TryLinuxPage() {
           <SectionHeading
             title={t('Install in three steps.')}
             description={t(
-              'Most desktop distributions already support Flatpak. Ubuntu needs one command first.',
+              'Install with your software center or the terminal. Ubuntu and NixOS need Flatpak support enabled first.',
             )}
           />
           <Tabs defaultValue="desktop" className="mt-8 flex-col">
@@ -265,6 +265,17 @@ export function TryLinuxPage() {
                   href="https://flathub.org/en/setup"
                 >
                   {t('Set up Flatpak for your distribution')}
+                </a>
+              </p>
+              <p className="mt-3 text-xs leading-relaxed text-text-secondary">
+                {t(
+                  'NixOS needs Flatpak enabled first. Linux Mint may show an Unverified Flatpak badge before installation because the app comes from its own repository.',
+                )}{' '}
+                <a
+                  className="underline underline-offset-4 hover:text-text"
+                  href={HELP}
+                >
+                  {t('See the distribution setup notes.')}
                 </a>
               </p>
             </TabsContent>

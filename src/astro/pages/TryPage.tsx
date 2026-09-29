@@ -65,12 +65,12 @@ const platforms = [
       t('Setup may enable virtualization and require a restart'),
     ],
     note: t(
-      'Hardware virtualization is required. Setup downloads several GB. Windows on ARM is not supported.',
+      'Hardware virtualization is required. Setup downloads about 2 GB. Windows on ARM is not supported.',
     ),
     download: `${WINDOWS}/releases/latest/download/TryOmarchy.exe`,
     label: t('Download for Windows'),
     source: WINDOWS,
-    guide: `${WINDOWS}#try-it`,
+    guide: `${WINDOWS}#get-started`,
     guideLabel: t('Windows quick start'),
     quickStart: [
       t('Download TryOmarchy.exe and open it.'),
@@ -96,7 +96,7 @@ const platforms = [
       t('Installs and updates through your software center'),
     ],
     note: t(
-      'KVM is required. Setup downloads about 2 GB. Ubuntu needs Flatpak support first. ARM is not supported.',
+      'KVM is required. Setup downloads about 2 GB. Ubuntu and NixOS need Flatpak support first. ARM is not supported.',
     ),
     download: LINUX_INSTALLER,
     label: t('Download for Linux'),
@@ -216,7 +216,7 @@ export function TryPage() {
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-text-secondary sm:text-base">
               {t(
-                'Download the app, open it, and follow the guided setup. Omarchy runs in a virtual machine inside the app, with nothing to configure, and what you install or change stays.',
+                'Download the app, open it, and follow the guided setup. The app prepares the virtual machine for you, and what you install or change stays.',
               )}
             </p>
             <div
